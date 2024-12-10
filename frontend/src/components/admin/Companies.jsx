@@ -1,3 +1,6 @@
+
+
+
 import React, { useEffect, useState } from 'react'
 import Navbar from '../shared/Navbar'
 import { Input } from '../ui/input'
@@ -14,25 +17,37 @@ const Companies = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(setSearchCompanyByText(input));
-    },[input]);
+    }, [input, dispatch]);
+
     return (
-        <div>
+        <div className="bg-gray-50 min-h-screen">
             <Navbar />
-            <div className='max-w-6xl mx-auto my-10'>
-                <div className='flex items-center justify-between my-5'>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-10">
+                {/* Filter and Button Section */}
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
                     <Input
-                        className="w-fit"
+                        className="w-full sm:w-1/2 md:w-1/3"
                         placeholder="Filter by name"
+                        value={input}
                         onChange={(e) => setInput(e.target.value)}
                     />
-                    <Button onClick={() => navigate("/admin/companies/create")}>New Company</Button>
+                    <Button 
+                        className="mt-4 sm:mt-0"
+                        onClick={() => navigate("/admin/companies/create")}
+                    >
+                        New Company
+                    </Button>
                 </div>
-                <CompaniesTable/>
+
+                {/* Companies Table */}
+                <div className="mt-8 overflow-x-auto">
+                    <CompaniesTable />
+                </div>
             </div>
         </div>
     )
 }
 
-export default Companies
+export default Companies;
